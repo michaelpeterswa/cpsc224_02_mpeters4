@@ -2,6 +2,9 @@ import java.util.Scanner;
 
 public class Conversion {
 
+    private static double distance;
+    private static Scanner scnr = new Scanner(System.in);
+
     private static double showKilometers(double meters) {
         return meters * .001;
     }
@@ -16,13 +19,8 @@ public class Conversion {
 
     private static void menu() {
         int choice;
-        double input;
-        Scanner scnr = new Scanner(System.in);
 
-
-        System.out.print("Enter a distance in meters: ");
-        input = scnr.nextDouble();
-        if (input < 0) {
+        if (distance < 0) {
             System.out.println("You can't use negative numbers silly!");
         }
         else{
@@ -35,18 +33,19 @@ public class Conversion {
 
             System.out.print("Enter your choice: ");
             System.out.print("");
+
             choice = scnr.nextInt();
             if (choice == 1) {
                 System.out.println();
-                System.out.println(input + " meters is " + showKilometers(input) + " kilometers.");
+                System.out.println(distance + " meters is " + showKilometers(distance) + " kilometers.");
                 menu();
             } else if (choice == 2) {
                 System.out.println();
-                System.out.println(input + " meters is " + showInches(input) + " inches.");
+                System.out.println(distance + " meters is " + showInches(distance) + " inches.");
                 menu();
             } else if (choice == 3) {
                 System.out.println();
-                System.out.println(input + " meters is " + showFeet(input) + " feet.");
+                System.out.println(distance + " meters is " + showFeet(distance) + " feet.");
                 menu();
             } else if (choice == 4) {
                 System.out.println();
@@ -61,9 +60,8 @@ public class Conversion {
 
     }
     public static void main (String[]args){
-
+        System.out.print("Enter a distance in meters: ");
+        distance = scnr.nextDouble();
         menu();
-
-
     }
 }

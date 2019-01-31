@@ -3,8 +3,6 @@ Homework #1
 Due Date: 01.31.19
 Names: Michael Peters
        Jackson Ricks
-
-TESTING BRANCH, DO NOT SUBMIT
  */
 
 import java.util.Scanner;

@@ -10,11 +10,11 @@ public class Main {
         System.out.println();
         System.out.println("changing name to spot...");
         System.out.println("changing animal to cat...");
-        System.out.println("changing age to 3...");
+        System.out.println("changing age to 2...");
 
         dog.setName("spot");
         dog.setAnimal("cat");
-        dog.setAge(3);
+        dog.setAge(2);
 
         System.out.println();
         System.out.println(dog.getName());

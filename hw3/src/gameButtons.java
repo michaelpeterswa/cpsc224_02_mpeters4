@@ -17,6 +17,8 @@ public class gameButtons extends JPanel
    private JPanel panel;
    private JButton[][] choices;
    private JButton help;
+   public int value;
+   public String letter;
    /**
       Constructor
    */
@@ -30,6 +32,8 @@ public class gameButtons extends JPanel
       panel.setLayout(new GridLayout(3,3)); 
       tick = 0;
       val = new int[3][3];
+      value = -1;
+      letter = "";
 
       // Create the radio buttons.
       help = new JButton();
@@ -55,74 +59,82 @@ public class gameButtons extends JPanel
 
    public class ButtonListener implements ActionListener
    {
-    ImageIcon X = new ImageIcon("pics/smile.png");
-    ImageIcon O = new ImageIcon("Dice/frown.png");
      public void actionPerformed(ActionEvent e)
      {
-         /*
         tick++;
-       
         if (tick % 2 == 1) {
-            setIcon(X);
-            setDisabledIcon(X);
-            setEnabled(False);
-            //val[i][j] = 1;
+            letter = "X";
+            value = 1;
         }
         if (tick % 2 == 0) {
-            setIcon(O);
-            setDisabledIcon(O);
-            setEnabled(False);
-            //val[i][j] = 0;
-        }*/
-/*
-        // Display Letters
-        for (int i = 0; i < 9; i++) {
-            if (a.getSource() == b[i]) {
-                b[i].setIcon(ltr);
-                b[i].setDisabledIcon(ltr);
-                b[i].setEnabled(false);
-                letters[i] = letter;
+            letter = "O";
+            value = 2;
+        }
+
+    
+      for(int i = 0; i <= 2; i++)
+      {
+          for(int j = 0; j <= 2; j++)
+          {
+            if (e.getSource() == choices[i][j]) 
+            {
+                choices[i][j].setText(letter);
+                choices[i][j].setEnabled(false);
+                val[i][j] = value;
             }
-        }
-
+         }
+      }
+    
+      boolean win = false;
         // Who Won
-
-        // Horizontal
-        if (letters[0].equals(letters[1]) && letters[1].equals(letters[2]) && !letters[0].equals("")) {
+        if(val[0][0] == val[0][1] && val[0][0] == val[0][2] && val[0][0] != 0)
+        {
             win = true;
-        } else if (letters[3].equals(letters[4]) && letters[4].equals(letters[5]) && !letters[3].equals("")) {
+        }
+        else if(val[1][0] == val[1][1] && val[1][0] == val[1][2] && val[1][0] != 0)
+        {
             win = true;
-        } else if (letters[6].equals(letters[7]) && letters[7].equals(letters[8]) && !letters[6].equals("")) {
+        }
+        else if(val[2][0] == val[2][1] && val[2][0] == val[2][2] && val[2][0] != 0)
+        {
             win = true;
         }
 
-        // Vertical
-        if (letters[0].equals(letters[3]) && letters[3].equals(letters[6]) && !letters[0].equals("")) {
-            win = true;
-        } else if (letters[1].equals(letters[4]) && letters[4].equals(letters[7]) && !letters[1].equals("")) {
-            win = true;
-        } else if (letters[2].equals(letters[5]) && letters[5].equals(letters[8]) && !letters[2].equals("")) {
+        if(val[0][0] == val[1][0] && val[0][0] == val[2][0] && val[0][0] != 0)
+        {
             win = true;
         }
-
-        // Diagonal
-        if (letters[0].equals(letters[4]) && letters[4].equals(letters[8]) && !letters[0].equals("")) {
+        else if(val[0][1] == val[1][1] && val[0][1] == val[2][1] && val[0][1] != 0)
+        {
             win = true;
-        } else if (letters[2].equals(letters[4]) && letters[4].equals(letters[6]) && !letters[2].equals("")) {
+        }
+        else if(val[0][2] == val[1][2] && val[0][2] == val[2][2] && val[0][2] != 0)
+        {
+            win = true;
+        }
+    
+
+        if(val[0][0] == val[1][1] && val[0][0] == val[2][2] && val[0][0] != 0)
+        {
+            win = true;
+        }
+        else if(val[0][2] == val[1][1] && val[0][2] == val[2][0] && val[0][2] != 0)
+        {
             win = true;
         }
 
         if (win) {
+            System.out.println("winner");
             JOptionPane.showMessageDialog(null, "Player " + letter + " wins!");
-            for (JButton i : b) {
-                i.setEnabled(false);
+            for (JButton i : choices) {
+               i.setEnabled(false);
             }
-        } else if (!win && value == 9) {
+        } else if (!win && tick == 9) {
             JOptionPane.showMessageDialog(null, "The game ended in a tie.");
         }
     }
-*/
 
-     }
+
+     
    }
 }

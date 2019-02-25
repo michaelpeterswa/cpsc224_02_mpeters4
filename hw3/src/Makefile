@@ -1,4 +1,3 @@
 all:
-
-    javac *.java
-    java ticTacToe
+	javac *.java
+	java ticTacToe.java

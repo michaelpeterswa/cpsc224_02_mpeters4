@@ -12,6 +12,7 @@ public class gameButtons extends JPanel
    // the cost of coffee.
    private int tick;
    private int[][] val;
+   public boolean inProgress;
 
         // To select no coffee
    private JPanel panel;
@@ -28,6 +29,8 @@ public class gameButtons extends JPanel
       // Create a GridLayout manager with 
       // four rows and one column.
       //setLayout(new GridLayout(3, 3));
+       //
+       inProgress = false;
       panel = new JPanel();
       panel.setLayout(new GridLayout(3,3)); 
       tick = 0;
@@ -42,7 +45,7 @@ public class gameButtons extends JPanel
       {
           for(int j = 0; j <= 2; j++)
           {
-              choices[i][j] = new JButton();
+              choices[i][j] = new JButton(" ");
               choices[i][j].addActionListener(new ButtonListener());
               panel.add(choices[i][j]);
           }
@@ -61,6 +64,7 @@ public class gameButtons extends JPanel
    {
      public void actionPerformed(ActionEvent e)
      {
+        inProgress = true;
         tick++;
         if (tick % 2 == 1) {
             letter = "X";
@@ -126,11 +130,10 @@ public class gameButtons extends JPanel
         if (win) {
             System.out.println("winner");
             JOptionPane.showMessageDialog(null, "Player " + letter + " wins!");
-            for (JButton i : choices) {
-               i.setEnabled(false);
-            }
+            inProgress = false;
         } else if (!win && tick == 9) {
             JOptionPane.showMessageDialog(null, "The game ended in a tie.");
+            inProgress = false;
         }
     }
 

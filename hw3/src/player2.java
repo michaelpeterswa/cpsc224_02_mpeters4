@@ -14,9 +14,9 @@ public class player2 extends JPanel
    public int wins = 0;
    public int losses = 0;
 
-   private JTextField textField;
-   private JLabel win;
-   private JLabel loss;
+   public JTextField textField;
+   public JLabel win;
+   public JLabel loss;
    private JLabel name;
    private JPanel names;
    private JLabel win_num;

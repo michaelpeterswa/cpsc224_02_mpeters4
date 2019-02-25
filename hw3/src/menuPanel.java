@@ -50,14 +50,13 @@ public class menuPanel extends JPanel {
                 System.exit(0);
             }
             if (e.getActionCommand() == "New Game") {
-                JOptionPane.showMessageDialog(null, "New Game");
+                new ticTacToe();
             }
             if (e.getActionCommand() == "Reset") {
                 if (JOptionPane.showConfirmDialog(null, "This will end the game and set the win/loss stats to 0. Are you sure?", "WARNING",
                         JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
-                    JOptionPane.showMessageDialog(null, "Yes");
+                    new ticTacToe();
                 else {
-                    JOptionPane.showMessageDialog(null, "No");
                 }
             }
         }

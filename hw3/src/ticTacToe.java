@@ -12,13 +12,18 @@ import java.awt.event.*;
 
 public class ticTacToe extends JFrame
 {
+    private player1 One;
+    private player2 Two;
+    private gameButtons game;
+
     private JTextField textField;
-    private JButton[][] select = new JButton[3][3];    // Correct declaration for 3x3 2d array in java with Jbuttons
-    private JPanel player1;
-    private JPanel player2;       // A panel to hold components
+    private JButton select;    // Correct declaration for 3x3 2d array in java with Jbuttons      // A panel to hold components
     private final int WINDOW_WIDTH = 500; // Window width
     private final int WINDOW_HEIGHT = 500; // Window height
     private JLabel messageLabel;
+    private JPanel p;
+    
+    
     /**
      Constructor
      */
@@ -29,31 +34,36 @@ public class ticTacToe extends JFrame
         setTitle("Tic Tac Toe");
 
         // Set the size of the window.
-        setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+        setSize(500, 500);
 
         // Specify what happens when the close button is clicked.
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JPanel p = new JPanel(new BorderLayout());
+
 
         // Create the three buttons.
+        One = new player1();
+        Two = new player2();
+        game = new gameButtons();
 
         messageLabel = new JLabel("Click a button because why not amirite?? ");
 
         // Register an event listener with all 3 buttons.
 
-
         // Create a panel and add the buttons to it.
-        player1 = new JPanel();
-        textField = new JTextField("Player 1", 5);
-        player1.setBorder(BorderFactory.createTitledBorder("Player 1 (X) "));
-        player1.setLayout(new BoxLayout(player1, BoxLayout.PAGE_AXIS));
-        player1.add(textField);
-
-        player1.add(messageLabel);
 
         // Add the panel to the content pane.
-        add(player1);
+        //add(One);
+        //add(Two);
+
+        p.add(One,BorderLayout.WEST);
+        p.add(Two,BorderLayout.EAST);
+        add(game,BorderLayout.CENTER);
+
+        add(p,BorderLayout.NORTH);
 
         // Display the window.
+        pack();
         setVisible(true);
     }
 
@@ -71,12 +81,12 @@ public class ticTacToe extends JFrame
         }
     }
 
-    public static class SelectPanel extends JPanel;
+    /*public static class SelectPanel extends JPanel;
     {
 
         // I think we need to separate the button select panel from player 1 and player 2
 
-
+        JButton select = new JButton[3][3];
         // Create a GridLayout manager with
         // four rows and one column.
         setLayout(new GridLayout(3, 3));
@@ -111,7 +121,7 @@ public class ticTacToe extends JFrame
         player1.add(select[2][0]);
         player1.add(select[2][1]);
         player1.add(select[2][2]);
-    }
+    }*/
 
     /**
      main method

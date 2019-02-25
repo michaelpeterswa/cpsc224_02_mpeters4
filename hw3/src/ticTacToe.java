@@ -8,81 +8,52 @@ Names: Jackson Ricks
 
 import javax.swing.*;    // Needed for Swing classes
 import java.awt.*;
-import java.awt.event.*;
 
-public class ticTacToe2 extends JFrame
+public class ticTacToe extends JFrame
 {
-    private player1 One;
-    private player2 Two;
-    private gameButtons game;
+    public static player1 One;
+    public static player2 Two;
+    private static gameButtons game;
     private menuPanel menu;
-    private JPanel selectPanel;
-    private JTextField textField;
-    private JButton[][] select;;    // Correct declaration for 3x3 2d array in java with Jbuttons      // A panel to hold components
     private final int WINDOW_WIDTH = 500; // Window width
     private final int WINDOW_HEIGHT = 500; // Window height
-    private JLabel messageLabel;
-    private JPanel p;
-
-
+    private static JPanel p;
+    
+    
     /**
      Constructor
      */
 
-    public ticTacToe2()
+    public ticTacToe()
     {
         // Set the title bar text.
         setTitle("Tic Tac Toe");
 
         // Set the size of the window.
-        setSize(500, 500);
+        setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setLayout(new BorderLayout());
         // Specify what happens when the close button is clicked.
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel p = new JPanel();
-        selectPanel = new JPanel();
         p.setLayout(new GridLayout(1, 2));
 
 
         // Create the three buttons.
-        menu = new menuPanel();
         One = new player1();
         Two = new player2();
         game = new gameButtons();
-
-        select = new JButton[3][3];
-
-        //
-        //
-        // Add the panel to the content pane.
-        //add(One);
-        //add(Two);
+        menu = new menuPanel();
 
         p.add(One);
         p.add(Two);
 
-
         add(p ,BorderLayout.NORTH);
-        add(selectPanel,BorderLayout.CENTER);
+        add(game,BorderLayout.CENTER);
         add(menu, BorderLayout.SOUTH);
 
         // Display the window.
-        //pack();
+        pack();
         setVisible(true);
-    }
-
-    /**
-     Private inner class that handles the event when
-     the user clicks a button.
-     */
-
-    private class ButtonListener implements ActionListener
-    {
-        public void actionPerformed(ActionEvent e)
-        {
-            // Get the action command.
-            String actionCommand = e.getActionCommand();
-        }
     }
 
     /**
@@ -92,5 +63,12 @@ public class ticTacToe2 extends JFrame
     public static void main(String[] args)
     {
         new ticTacToe();
+
+
+        //One.textField.setEditable(false);
+        //Two.textField.setEditable(false);
+
+        //there was an attempt to make the text box uneditable! :)
+
     }
 }

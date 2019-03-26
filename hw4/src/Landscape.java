@@ -6,14 +6,14 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 public class Landscape extends JFrame{
-    public int skyX = 0; // Mouse cursor's X position
-    public int skyY = 0; // Mouse cursor's Y position
-    public int grassX = 0; // Mouse cursor's X position
+    public int skyX = 0;
+    public int skyY = 0; 
+    public int grassX = 0; 
     public int grassY = 400;
-    public int rockX = 100; // Mouse cursor's X position
+    public int rockX = 100; 
     public int rockY = 250;
     public int rockSize = 300;
-    public int sunX = 400; // Mouse cursor's X position
+    public int sunX = 400; 
     public int sunY = 100;
     public int sunSize = 50;
     public Color sky = new Color (40,40,200);
@@ -58,7 +58,7 @@ public class Landscape extends JFrame{
 
       public void mouseReleased(MouseEvent e)
       {
-          // changes rock and sky back to their original colors
+          // Changes rock and sky back to their original colors
           rock = new Color (153,51,50);
           sky = new Color (40,40,200);
           repaint();
@@ -66,12 +66,14 @@ public class Landscape extends JFrame{
 
       public void mouseEntered(MouseEvent e)
       {
+         // Grass is made brighter
          grass = new Color(16,230,60);
          repaint();
       }
 
       public void mouseExited(MouseEvent e)
       {
+        // Grass is made darker whemn mouse is off screen
         grass = new Color(12,130,30);
         repaint();
       }

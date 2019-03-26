@@ -51,12 +51,14 @@ public class Landscape extends JFrame{
 
       public void mouseClicked(MouseEvent e)
       {
+          // Changes rock to a new purple color
           rock = new Color(102, 0, 102);
           repaint();
       }
 
       public void mouseReleased(MouseEvent e)
       {
+          // changes rock and sky back to their original colors
           rock = new Color (153,51,50);
           sky = new Color (40,40,200);
           repaint();

@@ -1,8 +1,6 @@
-// Author: Jackson Ricks
+// Author: Jackson Ricks and Michael Peters
 // Assignment 4
 // 3/25/19
-
-//import sun.security.provider.Sun;
 
 import java.awt.*;
 import javax.swing.*;
@@ -85,6 +83,20 @@ public class Landscape extends JFrame{
    {
       public void mouseDragged(MouseEvent e)
       {
+          sky = new Color (e.getY()%255,e.getX()%255,150);
+
+          rockX = (int) (e.getX() * 1.75 - 300);
+          rockY = (int) (e.getY() * 0.25 + 250);
+
+          grassY = (int) (e.getY() * 0.1 + 400);
+
+          rockX = (int) (e.getX() * 1.25 - 250);
+          rockY = (int) (e.getY() * 0.25 + 250);
+
+          sunX = e.getX() * 3 - 600;
+          sunY = (int) (e.getY() * 0.45 + 50);
+
+          repaint();
       }
 
       public void mouseMoved(MouseEvent e)
@@ -123,7 +135,6 @@ public class Landscape extends JFrame{
    }
 
    public void actionPerformed(ActionEvent e)
-   // will run when the timer fires
    {
 	repaint();
    }
@@ -131,20 +142,6 @@ public class Landscape extends JFrame{
    // draw rectangles and arcs
    public void paintComponent( Graphics g )
    {
-     /* super.paintComponent( g ); // call superclass's paintComponent 
-	  g.setColor(Color.red);
-
-	// check for boundaries
-	if (x < radius)			dx = Math.abs(dx);
-	if (x > getWidth() - radius)	dx = -Math.abs(dx);
-	if (y < radius)			dy = Math.abs(dy);
-	if (y > getHeight() - radius)	dy = -Math.abs(dy);
-
-	// adjust ball position
-	x += dx;
-	y += dy;
-	g.fillOval(x - radius, y - radius, radius*2, radius*2);
-   }*/
     g.setColor(sky);
     g.fillRect(skyX, skyY, 600, 600);
 

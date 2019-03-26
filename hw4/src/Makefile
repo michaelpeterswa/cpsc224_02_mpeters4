@@ -1,3 +1,3 @@
 all:
-    javac Landscape.java
-    java Landscape.class
+	javac Landscape.java
+	java Landscape

@@ -2,6 +2,8 @@
 // ICA6: Mouse and Graphics
 // 3/10/17
 
+import sun.security.provider.Sun;
+
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
@@ -37,19 +39,6 @@ public class Landscape extends JFrame{
 	public void paint(Graphics g){
         // Call the superclass's paint method.
         super.paint(g);
-      // Draw a rectangle.
-        //g.setColor(sky);
-        //g.fillRect(skyX, skyY, 600, 600);
-        
-        //g.setColor(grass);
-        //g.fillRect(grassX,grassY,600,600);
-
-        //g.setColor(sun);
-        //g.fillOval(sunX, sunY , sunSize, sunSize);
-
-        //g.setColor(rock);
-       // g.fillArc(rockX, rockY, rockSize, rockSize, 0 , 180);
-
     }
 
    private class MyMouseListener
@@ -83,8 +72,8 @@ public class Landscape extends JFrame{
 
       public void mouseExited(MouseEvent e)
       {
-          grass = new Color(12,130,30);
-          repaint();
+        grass = new Color(12,130,30);
+        repaint();
       }
    }
 
@@ -92,52 +81,25 @@ public class Landscape extends JFrame{
       Private inner class to handle mouse motion events.
    */
 
-   private class MyMouseMotionListener
-                         implements MouseMotionListener
+   private class MyMouseMotionListener implements MouseMotionListener
    {
       public void mouseDragged(MouseEvent e)
-      {   
+      {
       }
 
       public void mouseMoved(MouseEvent e)
       {
-        if (e.getX() > 300 && rockX > 0)
-        {
-            rockX = rockX -1;
-            sunX = sunX - 1;
-        }  
-        if (e.getX() < 300 && rockX < 600)
-        {
-            rockX = rockX +1;
-            sunX = sunX + 1;
-        } 
-        if (e.getY() > 450 && grassY > 200)
-        {
-            rockY = rockY -1;
-            sunY = sunY -1;
-            grassY = grassY -1;
-        } 
-        if (e.getY() < 150 && grassY < 500)
-        {
-            rockY = rockY +1;
-            sunY = sunY +1;
-            grassY = grassY +1;
-        } 
-       /* if (e.getY() < 250 && grassY > 300)
-        {
-            sunY = sunY - 1;
-            grassY = grassY -1;
-        } 
-        if (e.getX() < 300 && rockX < 600)
-        {
-            rockX = rockX +1;
-            sunX = sunX +1;
-        }  
-        if (e.getY() > 250 && grassY < 600)
-        {
-            sunY = sunY + 1;
-            grassY = grassY +1;
-        } */
+          rockX = (int) (e.getX() * 1.75 - 300);
+          rockY = (int) (e.getY() * 0.25 + 250);
+
+          grassY = (int) (e.getY() * 0.1 + 400);
+
+          rockX = (int) (e.getX() * 1.25 - 250);
+          rockY = (int) (e.getY() * 0.25 + 250);
+
+          sunX = e.getX() * 3 - 600;
+          sunY = (int) (e.getY() * 0.45 + 50);
+          repaint();
       }
    }
 
@@ -154,7 +116,7 @@ public class Landscape extends JFrame{
    private int dx = 2;		// increment amount (x coord)
    private int dy = 2;		// increment amount (y coord)
 
-   public BallPanel()
+   public void BallPanel()
    {
       timer = new Timer(delay, this);
 	  timer.start();		// start the timer
@@ -183,17 +145,17 @@ public class Landscape extends JFrame{
 	y += dy;
 	g.fillOval(x - radius, y - radius, radius*2, radius*2);
    }*/
-   g.setColor(sky);
-   g.fillRect(skyX, skyY, 600, 600);
-   
+    g.setColor(sky);
+    g.fillRect(skyX, skyY, 600, 600);
+
+    g.setColor(sun);
+    g.fillOval(sunX, sunY , sunSize, sunSize);
+
+    g.setColor(rock);
+    g.fillArc(rockX, rockY, rockSize, rockSize, 0 , 180);
+
    g.setColor(grass);
    g.fillRect(grassX,grassY,600,600);
-
-   g.setColor(sun);
-   g.fillOval(sunX, sunY , sunSize, sunSize);
-
-     g.setColor(rock);
-     g.fillArc(rockX, rockY, rockSize, rockSize, 0 , 180);
 
     }
 }

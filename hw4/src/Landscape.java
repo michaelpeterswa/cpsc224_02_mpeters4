@@ -123,45 +123,44 @@ public class Landscape extends JFrame{
 
 
    class ShapePanel extends JPanel implements ActionListener
-{
-   private int delay = 10;
-   protected Timer timer;
-
-   private int x = 0;		// x position
-   private int y = 0;		// y position
-   private int radius = 15;	// ball radius
-
-   private int dx = 2;		// increment amount (x coord)
-   private int dy = 2;		// increment amount (y coord)
-
-   public void BallPanel()
    {
-      timer = new Timer(delay, this);
-	  timer.start();		// start the timer
-   }
+     private int delay = 10;
+     protected Timer timer;
 
-   public void actionPerformed(ActionEvent e)
-   {
-	repaint(); //update scene
-   }
+     private int x = 0;		// x position
+     private int y = 0;		// y position
+     private int radius = 15;	// ball radius
 
-   // draw rectangles and arcs
-   public void paintComponent( Graphics g )
-   {
-    g.setColor(sky);
-    g.fillRect(skyX, skyY, 600, 600);//create sky
+     private int dx = 2;		// increment amount (x coord)
+     private int dy = 2;		// increment amount (y coord)
 
-    g.setColor(sun);
-    g.fillOval(sunX, sunY , sunSize, sunSize); //create sun
+     public void BallPanel()
+     {
+        timer = new Timer(delay, this);
+	    timer.start();		// start the timer
+     }
 
-    g.setColor(rock);
-    g.fillArc(rockX, rockY, rockSize, rockSize, 0 , 180); //create rock
-
-   g.setColor(grass);
-   g.fillRect(grassX,grassY,600,600); //create grass
-
+    public void actionPerformed(ActionEvent e)
+    {
+	  repaint(); //update scene
     }
-}
+
+    // draw rectangles and arcs
+    public void paintComponent( Graphics g )
+    {
+      g.setColor(sky);
+      g.fillRect(skyX, skyY, 600, 600);//create sky
+
+      g.setColor(sun);
+      g.fillOval(sunX, sunY , sunSize, sunSize); //create sun
+
+      g.setColor(rock);
+      g.fillArc(rockX, rockY, rockSize, rockSize, 0 , 180); //create rock
+
+      g.setColor(grass);
+     g.fillRect(grassX,grassY,600,600); //create grass
+    }
+  }
     
     
 	public static void main(String[] args){

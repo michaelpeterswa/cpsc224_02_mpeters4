@@ -85,6 +85,7 @@ public class Landscape extends JFrame{
    {
       public void mouseDragged(MouseEvent e)
       {
+          //implements parallax shifting AND rainbow sky
           sky = new Color (e.getY()%255,e.getX()%255,150);
 
           rockX = (int) (e.getX() * 1.75 - 300);
@@ -103,6 +104,7 @@ public class Landscape extends JFrame{
 
       public void mouseMoved(MouseEvent e)
       {
+          //implements parallax shifting
           rockX = (int) (e.getX() * 1.75 - 300);
           rockY = (int) (e.getY() * 0.25 + 250);
 
@@ -113,7 +115,7 @@ public class Landscape extends JFrame{
 
           sunX = e.getX() * 3 - 600;
           sunY = (int) (e.getY() * 0.45 + 50);
-          repaint();
+          repaint(); //update scene
       }
    }
 
@@ -138,29 +140,29 @@ public class Landscape extends JFrame{
 
    public void actionPerformed(ActionEvent e)
    {
-	repaint();
+	repaint(); //update scene
    }
 
    // draw rectangles and arcs
    public void paintComponent( Graphics g )
    {
     g.setColor(sky);
-    g.fillRect(skyX, skyY, 600, 600);
+    g.fillRect(skyX, skyY, 600, 600);//create sky
 
     g.setColor(sun);
-    g.fillOval(sunX, sunY , sunSize, sunSize);
+    g.fillOval(sunX, sunY , sunSize, sunSize); //create sun
 
     g.setColor(rock);
-    g.fillArc(rockX, rockY, rockSize, rockSize, 0 , 180);
+    g.fillArc(rockX, rockY, rockSize, rockSize, 0 , 180); //create rock
 
    g.setColor(grass);
-   g.fillRect(grassX,grassY,600,600);
+   g.fillRect(grassX,grassY,600,600); //create grass
 
     }
 }
     
     
 	public static void main(String[] args){
-		new Landscape();
+		new Landscape(); //call Landscape Constructor
 	}	
 }

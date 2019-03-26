@@ -1,8 +1,8 @@
 // Author: Jackson Ricks
-// ICA6: Mouse and Graphics
-// 3/10/17
+// Assignment 4
+// 3/25/19
 
-import sun.security.provider.Sun;
+//import sun.security.provider.Sun;
 
 import java.awt.*;
 import javax.swing.*;

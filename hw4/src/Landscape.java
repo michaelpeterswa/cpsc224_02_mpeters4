@@ -6,22 +6,22 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 public class Landscape extends JFrame{
-    public int skyX = 0;
-    public int skyY = 0; 
-    public int grassX = 0; 
-    public int grassY = 400;
-    public int rockX = 100; 
-    public int rockY = 250;
-    public int rockSize = 300;
-    public int sunX = 400; 
-    public int sunY = 100;
-    public int sunSize = 50;
-    public Color sky = new Color (40,40,200);
-    public Color sun = new Color (255,255,0);
-    public Color rock = new Color (153,51,50);
-    public Color grass = new Color (12,130,30);
+    private int skyX = 0;
+    private int skyY = 0;
+    private int grassX = 0;
+    private int grassY = 400;
+    private int rockX = 100;
+    private int rockY = 250;
+    private int rockSize = 300;
+    private int sunX = 400;
+    private int sunY = 100;
+    private int sunSize = 50;
+    private Color sky = new Color (40,40,200);
+    private Color sun = new Color (255,255,0);
+    private Color rock = new Color (153,51,50);
+    private Color grass = new Color (12,130,30);
 
-	Landscape()
+	private Landscape()
 	{
 		setTitle("Motion Parallax");	
         addMouseListener(new MyMouseListener());

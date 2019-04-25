@@ -1,5 +1,6 @@
 public class Card implements Comparable<Card>
 {
+	//implementing comparable class allows for easy sorting
         //only three face cards K, Q, J
 	public int face;
 	

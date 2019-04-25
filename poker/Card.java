@@ -1,10 +1,10 @@
 public class Card implements Comparable<Card>
 {
-  // I.V.s are suit and rank
+        //only three face cards K, Q, J
 	public int face;
-	//public int rank;
 	
-	//@Override
+	
+	
 	public int compareTo(Card o) 
 	{
 	     if (this.face == (o.face))

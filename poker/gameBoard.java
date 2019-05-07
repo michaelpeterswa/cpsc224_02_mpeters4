@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File.*;
 import javax.imageio.ImageIO;
+import java.util.Random;
+
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -16,7 +18,9 @@ import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-
+import java.util.concurrent.TimeUnit;
+import java.util.TimerTask;
+import java.lang.Thread;
 
 
 public class gameBoard extends JPanel {
@@ -24,13 +28,31 @@ public class gameBoard extends JPanel {
     Deck deck = new Deck();
     //private Player player;
     Card hand = new Card();
+    Card com_Hand = new Card();
     public JLabel jack_display;
     public JLabel queen_display;
     public JLabel king_display;
     public JLabel rBack_display;
     public JLabel gBack_display;
     public JPanel[][] panelHolder;
-    private JButton[] choices;
+    public JButton[] choices;
+    public JButton check;
+    public JButton call;
+    public JButton raise;
+    public JButton com;
+    public JLabel pot_display;
+    public JLabel player = new JLabel("Player: 19");
+    public JLabel computer = new JLabel("Computer: 19");
+    public String text = "pot: 2";
+    public int turn = 0;
+    public int money = 20;
+    public int com_money = 20;
+    public int hum_card;
+    public int com_card;
+    public int pot = 0;
+    public int time = 0;
+    public int delay = 1000;
+    public Timer timer;
     //private JPanel main;
     //private JPanel status;
     //private JButton reset;
@@ -100,36 +122,61 @@ public class gameBoard extends JPanel {
 			
 		// player draws
         hand = deck.deal();
+        com_Hand = deck.cp_deal();
         
         //evaluate(hand);
         if ((hand.face) == 1)
         {
-           panelHolder[1][1].add(jack_display);
+           //panelHolder[1][1].add(jack_display);
+           add(jack_display);
         }
         else if ((hand.face) == 2)
         {
-           panelHolder[1][1].add(queen_display);
+           //panelHolder[1][1].add(queen_display);
+           add(queen_display);
         }
         else if ((hand.face) == 3)
         {
-           panelHolder[1][1].add(king_display);
+           //panelHolder[1][1].add(king_display);
+           add(king_display);
         }
-        panelHolder[0][1].add(rBack_display);
-        panelHolder[1][2].add(gBack_display);
+       // panelHolder[0][1].
+        add(rBack_display);
+        //panelHolder[1][2].
+        add(gBack_display);
 
         JPanel buttons = new JPanel();
         choices = new JButton[3];
-        choices[0] = new JButton("Check");
-        choices[1] = new JButton("Raise");
-        choices[2] = new JButton("Fold");
+        //choices[0] = 
+        check = new JButton("Check");
+        
+        //choices[1] = 
+        raise = new JButton("Raise");
+        //choices[2] = 
+        call = new JButton("Call");
+        com = new JButton("Computer");
+        check.setBackground(Color.red);
+        check.addActionListener(new ButtonListener());
+        raise.addActionListener(new ButtonListener());
+        call.addActionListener(new ButtonListener());
+        com.addActionListener(new ComListener());
+        add(check);
+        add(raise);
+        add(call);
+        add(com);
         for (int v = 0; i<= 2; i++)
         {
-            choices[v].addActionListener(new ButtonListener());
-            panelHolder[2][v].add(choices[v]);  
+            choices[v].setBackground(Color.red); 
+            buttons.add(choices[v]);  
         }
         //panelHolder[2][2].add(buttons);
-
-       
+        pot_display = new JLabel();
+        pot_display.setText(text);
+        //add(buttons);
+        add(pot_display);
+        add(player);
+        add(computer);
+       //play_game();
 
         //main.add(reset);
         //main.add(newGame);
@@ -137,6 +184,8 @@ public class gameBoard extends JPanel {
 
         //statusLabel.setHorizontalAlignment(SwingConstants.LEFT);
         //status.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));
+
+        
         //status.add(statusLabel);
         //pack()
         //add(main, BorderLayout.CENTER);
@@ -150,82 +199,275 @@ public class gameBoard extends JPanel {
 
         public class ButtonListener implements ActionListener
         {
-          public void actionPerformed(ActionEvent e)
-          {
-             /*inProgress = true;
-             tick++;
-             if (tick % 2 == 1) {
-                 letter = "X";
-                 value = 1;
-             }
-             if (tick % 2 == 0) {
-                 letter = "O";
-                 value = 2;
-             }
-     
-         
-           for(int i = 0; i <= 2; i++)
-           {
-               for(int j = 0; j <= 2; j++)
-               {
-                 if (e.getSource() == choices[i][j]) 
-                 {
-                     choices[i][j].setText(letter);
-                     choices[i][j].setEnabled(false);
-                     val[i][j] = value;
-                 }
-              }
-           }
-         
-           boolean win = false;
-             // Who Won
-             if(val[0][0] == val[0][1] && val[0][0] == val[0][2] && val[0][0] != 0)
-             {
-                 win = true;
-             }
-             else if(val[1][0] == val[1][1] && val[1][0] == val[1][2] && val[1][0] != 0)
-             {
-                 win = true;
-             }
-             else if(val[2][0] == val[2][1] && val[2][0] == val[2][2] && val[2][0] != 0)
-             {
-                 win = true;
-             }
-     
-             if(val[0][0] == val[1][0] && val[0][0] == val[2][0] && val[0][0] != 0)
-             {
-                 win = true;
-             }
-             else if(val[0][1] == val[1][1] && val[0][1] == val[2][1] && val[0][1] != 0)
-             {
-                 win = true;
-             }
-             else if(val[0][2] == val[1][2] && val[0][2] == val[2][2] && val[0][2] != 0)
-             {
-                 win = true;
-             }
-         
-     
-             if(val[0][0] == val[1][1] && val[0][0] == val[2][2] && val[0][0] != 0)
-             {
-                 win = true;
-             }
-             else if(val[0][2] == val[1][1] && val[0][2] == val[2][0] && val[0][2] != 0)
-             {
-                 win = true;
-             }
-     
-             if (win) {
-                 System.out.println("winner");
-                 JOptionPane.showMessageDialog(null, "Player " + letter + " wins!");
-                 inProgress = false;
-             } else if (!win && tick == 9) {
-                 JOptionPane.showMessageDialog(null, "The game ended in a tie.");
-                 inProgress = false;
-             }
-             */
-         }
+              
+             /* public void updateScore()
+              {
+                //timer = new Timer(delay, this);
+                //timer.start();
+                //timer = new Timer(100000, this);
+                //timer.start();
+                String new_money;
+                text = String.format("Pot: %02d", pot);
+                pot_display.setText(text);
+                new_money = String.format("Computer: %02d", com_money);
+                computer.setText(new_money); 
+                new_money = String.format("Human: %02d", money);
+                player.setText(new_money);
+                //timer = new Timer();
+                //timer.setInitialDelay(5000);
+               // try {TimeUnit.SECONDS.sleep(1);}
+                //catch (InterruptedException k) {System.err.format("IOException: %s%n", k);}
+                //timer.stop();
+              }*/
+         public void actionPerformed(ActionEvent e)
+         {
+            Random rand = new Random();
+            int n = rand.nextInt(50);
+            hum_card = hand.face;
+            com_card = com_Hand.face;
+
+            //while (money > 0 && com_money > 0)
+            //{
+                
+            if (turn == 0)
+            {
+                  pot+=2;
+                  money--;
+                  com_money--;
+                  updateScore();
+                  //try {TimeUnit.SECONDS.sleep(1);}
+                  //catch (InterruptedException k) {System.err.format("IOException: %s%n", k);}
+                  if (e.getSource() == raise)
+                  {
+                        //pot_display= new JLabel();
+                    pot++;
+                    money--; 
+                  }
+                  updateScore();
+                  turn = 1;
+            }
+            else if (turn == 1)
+            {
+                    if (pot == 3)
+                    {
+                        
+                          if ((e.getSource() == call) || (e.getSource() == raise))
+                          {
+                            pot++;
+                            money--;
+                            updateScore();
+                            //Add delay
+                            winConditions();
+                            updateScore();
+                          }
+                    turn = 0;
+                    }
+                    else //pot == 2
+                    {
+                        
+                          if ((e.getSource() == check) || (e.getSource() == call))
+                          {
+                            //Add delay
+                            winConditions();
+                            updateScore();
+                            turn = 0;
+                          }
+                          else // raise pot by 1
+                          {
+                            pot++;
+                            money--;
+                            updateScore();
+                          }
+                    }
+            }
+                
+
+            //}
+            
+            
+            
+          //actionperformed bracket  
+          }
+            
+            
+            
+        
+        //class bracket 
         }
+        public class ComListener implements ActionListener
+        {
+            public void actionPerformed(ActionEvent e)
+          {
+            Random rand = new Random();
+            int n = rand.nextInt(50);
+            hum_card = hand.face;
+            com_card = com_Hand.face;
+
+            //while (money > 0 && com_money > 0)
+            //{
+                
+            if (turn == 0)
+            {
+                if (time == 1)
+                {
+                  pot+=2;
+                  money--;
+                  com_money--;
+                  updateScore();
+                    if(com_card == 0)
+                    {
+                      if(n >= 40)
+                      {
+                        pot++;
+                        com_money--;
+                      }
+                    }
+                    else if(com_card == 1)
+                    {
+                        if (n >= 25)
+                        {
+                          pot++;
+                          com_money--;
+                        }
+                    }
+                    else 
+                    {
+                        if (n > 10)
+                        {
+                          pot++;
+                          com_money--;
+                        }
+                       updateScore();
+                       time = 0;
+                    }
+                
+                turn = 1;
+                }
+            }
+            else if (turn == 1)
+            {
+                    if (pot == 3)
+                    {
+                            if(com_card == 0)
+                            {
+                                money += pot;
+                                pot = 0;
+                                updateScore();
+                            }
+                            else 
+                            {
+                                if (n >= 25 || ((com_card == 2) && (n > 10))) 
+                                {
+                                  pot++;
+                                  com_money--;
+                                  updateScore();
+                                  winConditions();
+                                }
+                                else 
+                                {
+                                    money += pot;
+                                    pot = 0;
+                                    updateScore();   
+                                }
+                            time = 0; 
+                            }
+                        
+                    turn = 0;
+                    }
+                    else //pot == 2
+                    {
+                            if(com_card == 0)
+                            {
+                                if (n <= 40)
+                                {
+                                  winConditions();
+                                  updateScore();
+                                }
+                                else
+                                {
+                                  pot++;
+                                  com_money--;
+                                  updateScore();
+                                }
+                            }
+                            else if(com_card == 1) 
+                            {
+                                if (n >= 25) //|| ((com_card == 2) && (n > 10))) 
+                                {
+                                  winConditions();
+                                }
+                                else 
+                                {
+                                    pot++;
+                                    com_money--;
+                                    updateScore();  
+                                }
+                            }
+                            else  
+                            {
+                                if (n >= 10)
+                                {
+                                   winConditions();
+                                }
+                                else 
+                                {
+                                    pot++;
+                                    com_money--;
+                                    updateScore();  
+                                }
+                            }
+                            time = 0; 
+                    }
+            }
+                
+
+            //}
+            
+            
+            
+          //actionperformed bracket  
+          }
+        }
+        public void updateScore()
+        {
+                //timer = new Timer(delay, this);
+                //timer.start();
+                //timer = new Timer(100000, new ActionListener());
+                //timer.start();
+                String new_money;
+                text = String.format("Pot: %02d", pot);
+                pot_display.setText(text);
+                new_money = String.format("Computer: %02d", com_money);
+                computer.setText(new_money); 
+                new_money = String.format("Human: %02d", money);
+                player.setText(new_money);
+                //timer = new Timer();
+                //timer.setInitialDelay(5000);
+                //timer.stop();
+        }
+
+        public void winConditions()
+        {
+                //timer = new Timer(delay, this);
+                //timer.start();
+                //timer.start();
+                hum_card = hand.face;
+                com_card = com_Hand.face;
+                if (hum_card > com_card)
+                {
+                        money += pot;
+                        pot = 0;
+                }
+                else
+                {
+                        com_money += pot;
+                        pot = 0;
+                }
+                updateScore();
+                turn = 0;
+                //timer.stop();
+        }
+
 
    /* private class ButtonListenerMenu implements ActionListener
     {
